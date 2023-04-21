@@ -1,15 +1,16 @@
-// Load the AWS SDK for Node.js
 const AWS = require('aws-sdk');
-// Create the DynamoDB service object
-AWS.config.update({region: 'us-east-1'});
+AWS.config.update({ region: 'us-east-1' });
 
 const ses = new AWS.SES({ apiVersion: "2010-12-01" });
 
 exports.handler = async (event) => {
+
+  console.log(JSON.stringify(event, undefined, 2));
   try {
+
     const params = {
       Destination: {
-        ToAddresses: ["amazon@amazon.com"], // 메일 주소 변경
+        ToAddresses: ["lim454@naver.com"],
       },
       Message: {
         Body: {
@@ -23,7 +24,7 @@ exports.handler = async (event) => {
           Data: "AWS Announcements",
         },
       },
-      Source: "amazon@amazon.com", // 메일 주소 변경
+      Source: "lim454@naver.com",
     };
 
     const { MessageId } = await ses.sendEmail(params).promise();
